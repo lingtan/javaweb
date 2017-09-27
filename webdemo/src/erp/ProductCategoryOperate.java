@@ -13,11 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 import common.AES;
 import common.DBHelper;
 import erp.Brand;
+import erp.ResultData;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-public class UserOperate extends HttpServlet {
+import java.util.*;
+import org.hibernate.*;
+import org.hibernate.criterion.Restrictions;
+
+import hibernate.*;
+public class ProductCategoryOperate extends HttpServlet {
 	
-	private DBHelper db=null;
+	 Session session=null;
 
 	/**
 	 * The doPost method of the servlet. <br>
@@ -34,15 +40,21 @@ public class UserOperate extends HttpServlet {
 		
 		
 		Brand brand=userRequest(request);
-		
+		try {
 		if(brand.getRequestType().equals("select"))
 		{
 			 QueryResponse(response,mySqlQuery(brand));
 		}else{
-			OperatelResponse( response,mySqOperatel(brand));
-		}
+			
+				OperatelResponse( response,mySqOperatel(brand));
+			
+		      }
 		
-		
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+				
 	
 	}
 	
@@ -71,55 +83,81 @@ public class UserOperate extends HttpServlet {
 		
 	}
 	
-	public int mySqOperatel(Brand brand)
+	public int mySqOperatel(Brand brand) throws SQLException
 	{
 		int result = -1;
 		String name= brand.getName();
 		String note= brand.getNote();
-		String original=brand.getOriginal();
-		String sql = null;
+		int  id=brand.getUnitId();
+		 session= HibernateSessionFactory.getSession();
 		
-	     try {
-	    	 if(brand.getRequestType().equals("insert"))
+	     if(brand.getRequestType().equals("insert"))
+		 {   
+	    	 try{
+	         Customcategory category=new Customcategory();
+	         category.setName(name);
+	         category.setNote(note);
+			 Transaction tx=session.beginTransaction();
+			 session.saveOrUpdate(category);
+			 tx.commit();
+			 
+			 result=category.getUnitId();
+	    	 }catch(RuntimeException re)
 	    	 {
-	    		 sql="insert into brand(name,note) values ("+"'"+name+"','"+note+"'"+")";
-	    	 }else if(brand.getRequestType().equals("update"))
-	    	 {
-	    		 sql="update brand set name='"+name+"' where name = '"+original+"' and note = '"+note+"' ";
-	    	 }else{
-	    		 sql="delete from brand  where name = '"+name+"' ";
+	    		 result=0;
+	    		 
 	    	 }
-	    	 
-	    
-	    	 
-		     DBHelper db = new DBHelper(sql);  
-			result = db.pst.executeUpdate();
-			 db.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		 }else if(brand.getRequestType().equals("update"))
+		 {
+			 try{
+				 Customcategory category = (Customcategory)session.get(Customcategory.class, id);
+				 Transaction tx=session.beginTransaction();
+				 category.setName(name);
+				 category.setNote(note);
+				 tx.commit();
+				 result=1;
+		    	 }catch(RuntimeException re)
+		    	 {
+		    		 result=0;
+		    		 
+		    	 }
+		 }else{
+			 
+			 try{
+				 Customcategory category = (Customcategory)session.get(Customcategory.class, id);
+				 Transaction tx=session.beginTransaction();
+				 if(category!= null ){  
+                     session.delete(category);  
+                   }  
+				 tx.commit();
+				 result=1;
+		    	 }catch(RuntimeException re)
+		    	 {
+		    		 result=0;
+		    		 
+		    	 }
+			 
+		 }
 	     
 	     return result;
 	    
 	}
 	
-	public ResultSet mySqlQuery(Brand brand)
+	public List<Customcategory> mySqlQuery(Brand brand)
 	{  
-		ResultSet result =null;
-		String name= brand.getName();
-		 String sql="select * from brand where name like '%"+name+"%' ";
-	     db = new DBHelper(sql);  
-	     try {
-	    	
-			result = db.pst.executeQuery();
-		
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	   
-	     return result;
+		 session= HibernateSessionFactory.getSession();
+		 Criteria crit=session.createCriteria(Customcategory.class);
+		 List<Customcategory> unitList=null;
+		 try{
+		 Transaction tx=session.beginTransaction();
+		 crit.add(Restrictions.like("name", "%"+brand.getName()+"%"));
+		 unitList=crit.list();
+		 tx.commit();
+		 } catch (RuntimeException re) {  
+	         
+	           
+	        }  
+	     return unitList;
 	    
 	}
 	
@@ -133,6 +171,7 @@ public class UserOperate extends HttpServlet {
 			   resultdata.setResult(result);
 			   JSONObject jsonobj=JSONObject.fromObject(resultdata);
 			    out.write(jsonobj.toString());
+				session.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -141,31 +180,19 @@ public class UserOperate extends HttpServlet {
 		
 	}
 	
-	public void QueryResponse(HttpServletResponse response,ResultSet result )
+	public void QueryResponse(HttpServletResponse response,List<Customcategory> result )
 	{
 		response.setContentType("text/json;charset=utf-8");
 		PrintWriter out;
 		try {
 			out = response.getWriter();
-			ResultSet rs=result;
-			ArrayList<Brand>  userList=new ArrayList<Brand> ();
-		   
-		   while(rs.next())
-			{
-			   Brand  brand=new Brand();
-			   brand.setName(rs.getString("name"));
-			   userList.add(brand);
-			}
-		  db.close();
 		 
-		   JSONArray array=JSONArray.fromObject(userList);
+		   JSONArray array=JSONArray.fromObject(result);
 			out.write(array.toString());
+			session.close();
 		
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
