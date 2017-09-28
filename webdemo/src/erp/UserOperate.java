@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import common.AES;
 import common.DBHelper;
-import erp.Brand;
+import erp.GetUserData;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 public class UserOperate extends HttpServlet {
@@ -33,24 +33,24 @@ public class UserOperate extends HttpServlet {
 			throws ServletException, IOException {
 		
 		
-		Brand brand=userRequest(request);
+		GetUserData getUserData=userRequest(request);
 		
-		if(brand.getRequestType().equals("select"))
+		if(getUserData.getRequestType().equals("select"))
 		{
-			 QueryResponse(response,mySqlQuery(brand));
+			 QueryResponse(response,mySqlQuery(getUserData));
 		}else{
-			OperatelResponse( response,mySqOperatel(brand));
+			OperatelResponse( response,mySqOperatel(getUserData));
 		}
 		
 		
 	
 	}
 	
-	public Brand userRequest(HttpServletRequest request)
+	public GetUserData userRequest(HttpServletRequest request)
 	{
 		StringBuffer jb=new StringBuffer();
 		String line=null;
-		Brand  brand=new Brand();
+		GetUserData  getUserData=new GetUserData();
 		
 		BufferedReader reader;
 		try {
@@ -61,29 +61,29 @@ public class UserOperate extends HttpServlet {
 			}
 			 
 			JSONObject jon=JSONObject.fromObject(AES.decode(jb.toString()));
-			brand=(Brand)JSONObject.toBean(jon,Brand.class);
+			getUserData=(GetUserData)JSONObject.toBean(jon,GetUserData.class);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return brand;
+		return getUserData;
 		
 	}
 	
-	public int mySqOperatel(Brand brand)
+	public int mySqOperatel(GetUserData getUserData)
 	{
 		int result = -1;
-		String name= brand.getName();
-		String note= brand.getNote();
-		String original=brand.getOriginal();
+		String name= getUserData.getName();
+		String note= getUserData.getNote();
+		String original=getUserData.getOriginal();
 		String sql = null;
 		
 	     try {
-	    	 if(brand.getRequestType().equals("insert"))
+	    	 if(getUserData.getRequestType().equals("insert"))
 	    	 {
 	    		 sql="insert into brand(name,note) values ("+"'"+name+"','"+note+"'"+")";
-	    	 }else if(brand.getRequestType().equals("update"))
+	    	 }else if(getUserData.getRequestType().equals("update"))
 	    	 {
 	    		 sql="update brand set name='"+name+"' where name = '"+original+"' and note = '"+note+"' ";
 	    	 }else{
@@ -104,10 +104,10 @@ public class UserOperate extends HttpServlet {
 	    
 	}
 	
-	public ResultSet mySqlQuery(Brand brand)
+	public ResultSet mySqlQuery(GetUserData getUserData)
 	{  
 		ResultSet result =null;
-		String name= brand.getName();
+		String name= getUserData.getName();
 		 String sql="select * from brand where name like '%"+name+"%' ";
 	     db = new DBHelper(sql);  
 	     try {
@@ -129,7 +129,7 @@ public class UserOperate extends HttpServlet {
 		PrintWriter out;
 		try {
 			out = response.getWriter();
-			 ResultData resultdata=new ResultData();
+			 ReturnUserData resultdata=new ReturnUserData();
 			   resultdata.setResult(result);
 			   JSONObject jsonobj=JSONObject.fromObject(resultdata);
 			    out.write(jsonobj.toString());
@@ -148,13 +148,13 @@ public class UserOperate extends HttpServlet {
 		try {
 			out = response.getWriter();
 			ResultSet rs=result;
-			ArrayList<Brand>  userList=new ArrayList<Brand> ();
+			ArrayList<GetUserData>  userList=new ArrayList<GetUserData> ();
 		   
 		   while(rs.next())
 			{
-			   Brand  brand=new Brand();
-			   brand.setName(rs.getString("name"));
-			   userList.add(brand);
+			   GetUserData  getUserData=new GetUserData();
+			   getUserData.setName(rs.getString("name"));
+			   userList.add(getUserData);
 			}
 		  db.close();
 		 

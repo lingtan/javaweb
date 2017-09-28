@@ -1,6 +1,6 @@
 package erp;
 
-public class Brand {
+public class GetUserData {
 	
 	private int unitId;
 	private String name;

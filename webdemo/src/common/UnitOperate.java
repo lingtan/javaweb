@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import common.AES;
 import common.DBHelper;
-import erp.Brand;
-import erp.ResultData;
+import erp.GetUserData;
+import erp.ReturnUserData;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import java.util.*;
@@ -39,14 +39,14 @@ public class UnitOperate extends HttpServlet {
 			throws ServletException, IOException {
 		
 		
-		Brand brand=userRequest(request);
+		GetUserData getUserData=userRequest(request);
 		try {
-		if(brand.getRequestType().equals("select"))
+		if(getUserData.getRequestType().equals("select"))
 		{
-			 QueryResponse(response,mySqlQuery(brand));
+			 QueryResponse(response,mySqlQuery(getUserData));
 		}else{
 			
-				OperatelResponse( response,mySqOperatel(brand));
+				OperatelResponse( response,mySqOperatel(getUserData));
 			
 		      }
 		
@@ -58,11 +58,11 @@ public class UnitOperate extends HttpServlet {
 	
 	}
 	
-	public Brand userRequest(HttpServletRequest request)
+	public GetUserData userRequest(HttpServletRequest request)
 	{
 		StringBuffer jb=new StringBuffer();
 		String line=null;
-		Brand  brand=new Brand();
+		GetUserData  getUserData=new GetUserData();
 		
 		BufferedReader reader;
 		try {
@@ -73,25 +73,25 @@ public class UnitOperate extends HttpServlet {
 			}
 			 
 			JSONObject jon=JSONObject.fromObject(AES.decode(jb.toString()));
-			brand=(Brand)JSONObject.toBean(jon,Brand.class);
+			getUserData=(GetUserData)JSONObject.toBean(jon,GetUserData.class);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return brand;
+		return getUserData;
 		
 	}
 	
-	public int mySqOperatel(Brand brand) throws SQLException
+	public int mySqOperatel(GetUserData getUserData) throws SQLException
 	{
 		int result = -1;
-		String name= brand.getName();
-		String note= brand.getNote();
-		int  id=brand.getUnitId();
+		String name= getUserData.getName();
+		String note= getUserData.getNote();
+		int  id=getUserData.getUnitId();
 		 session= HibernateSessionFactory.getSession();
 		
-	     if(brand.getRequestType().equals("insert"))
+	     if(getUserData.getRequestType().equals("insert"))
 		 {   
 	    	 try{
 	    	 Unit unit=new Unit();
@@ -107,7 +107,7 @@ public class UnitOperate extends HttpServlet {
 	    		 result=0;
 	    		 
 	    	 }
-		 }else if(brand.getRequestType().equals("update"))
+		 }else if(getUserData.getRequestType().equals("update"))
 		 {
 			 try{
 				 Unit unit = (Unit)session.get(Unit.class, id);
@@ -143,14 +143,14 @@ public class UnitOperate extends HttpServlet {
 	    
 	}
 	
-	public List<Unit> mySqlQuery(Brand brand)
+	public List<Unit> mySqlQuery(GetUserData getUserData)
 	{  
 		 session= HibernateSessionFactory.getSession();
 		 Criteria crit=session.createCriteria(Unit.class);
 		 List<Unit> unitList=null;
 		 try{
 		 Transaction tx=session.beginTransaction();
-		 crit.add(Restrictions.like("name", "%"+brand.getName()+"%"));
+		 crit.add(Restrictions.like("name", "%"+getUserData.getName()+"%"));
 		 unitList=crit.list();
 		 tx.commit();
 		 } catch (RuntimeException re) {  
@@ -167,7 +167,7 @@ public class UnitOperate extends HttpServlet {
 		PrintWriter out;
 		try {
 			out = response.getWriter();
-			 ResultData resultdata=new ResultData();
+			 ReturnUserData resultdata=new ReturnUserData();
 			   resultdata.setResult(result);
 			   JSONObject jsonobj=JSONObject.fromObject(resultdata);
 			    out.write(jsonobj.toString());

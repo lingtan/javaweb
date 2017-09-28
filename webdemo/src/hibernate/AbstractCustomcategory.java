@@ -25,7 +25,7 @@ public abstract class AbstractCustomcategory implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public AbstractCustomcategory(String name, String note) {
+	public AbstractCustomcategory(Integer unitId,String name, String note) {
 		this.name = name;
 		this.note = note;
 		this.unitId=unitId;

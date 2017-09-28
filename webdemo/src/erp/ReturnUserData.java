@@ -1,6 +1,6 @@
 package erp;
 
-public class ResultData {
+public class ReturnUserData {
 	
 	private int result;
 	

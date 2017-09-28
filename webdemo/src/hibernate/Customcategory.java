@@ -19,7 +19,7 @@ public class Customcategory extends AbstractCustomcategory implements
 
 	/** full constructor */
 	public Customcategory(Integer unitId,String name, String note) {
-		super(name, note);
+		super(unitId,name, note);
 	}
 
 }
