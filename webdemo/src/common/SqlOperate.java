@@ -28,9 +28,9 @@ public class SqlOperate extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 	    	 
-	    	String	 sql=" alter table  webdb.stock add selectImage int(20)";
-	    	String	 sqle="CREATE TABLE IF NOT EXISTS webdb.employee( id int(20) not null AUTO_INCREMENT,name varchar(300) not null,selectImage int(20),note varchar(300),PRIMARY KEY(id))ENGINE=InnoDB DEFAULT CHARSET=UTF8";
-	    	String	 sqlc=" CREATE TABLE IF NOT EXISTS webdb.customcategory( id int(20) not null AUTO_INCREMENT,name varchar(300) not null,selectImage int(20),note varchar(300),PRIMARY KEY(id))ENGINE=InnoDB DEFAULT CHARSET=UTF8";
+	    	String	 sql=" CREATE TABLE IF NOT EXISTS webdb.stock( id int(20) not null AUTO_INCREMENT,name varchar(300) not null,note varchar(300),PRIMARY KEY(id))ENGINE=InnoDB DEFAULT CHARSET=UTF8";
+	    	String	 sqle="CREATE TABLE IF NOT EXISTS webdb.employee( id int(20) not null AUTO_INCREMENT,name varchar(300) not null,note varchar(300),PRIMARY KEY(id))ENGINE=InnoDB DEFAULT CHARSET=UTF8";
+	    	String	 sqlc=" CREATE TABLE IF NOT EXISTS webdb.customcategory( id int(20) not null AUTO_INCREMENT,name varchar(300) not null,note varchar(300),PRIMARY KEY(id))ENGINE=InnoDB DEFAULT CHARSET=UTF8";
 	    	
 	    	
 	    
@@ -39,8 +39,6 @@ public class SqlOperate extends HttpServlet {
 		    DBHelper dbe = new DBHelper(sqle);  
 		    DBHelper dbc = new DBHelper(sqlc);  
 			db.pst.executeUpdate();
-			dbe.pst.executeUpdate();
-			dbc.pst.executeUpdate();
 			 db.close();
 			 dbe.close();
 			 dbc.close();

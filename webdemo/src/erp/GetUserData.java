@@ -3,7 +3,6 @@ package erp;
 public class GetUserData {
 	
 	private int unitId;
-	private int selectImage;
 	private String name;
 	private String note;
 	private  String original;
@@ -17,13 +16,6 @@ public class GetUserData {
 
     public void setUnitId(int unitId) {
         this.unitId = unitId;
-    }
-    public int getSelectImage() {
-        return selectImage;
-    }
-
-    public void setSelectImage(int selectImage) {
-        this.selectImage = selectImage;
     }
 	public String getName()
 	{
@@ -84,7 +76,7 @@ public class GetUserData {
 	@Override
 	public String toString() {
 		
-		return "User [unitId="+unitId+",selectImage="+selectImage+",name="+name+",password="+note+",requestType="+requestType+",serverIp="+serverIp+",servlet="+servlet+"]";
+		return "User [unitId="+unitId+",name="+name+",password="+note+",requestType="+requestType+",serverIp="+serverIp+",servlet="+servlet+"]";
 	}
 
 	
