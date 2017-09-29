@@ -13,25 +13,6 @@ public class Unit{
 	private String name;
 	private String note;
 
-	// Constructors
-
-	/** default constructor */
-	public Unit() {
-	}
-
-	/** minimal constructor */
-	public Unit(String name) {
-		this.name = name;
-	}
-
-	/** full constructor */
-	public Unit(Integer unitId,String name, String note) {
-		this.unitId=unitId;
-		this.name = name;
-		this.note = note;
-	}
-
-	// Property accessors
 
 	public Integer getUnitId() {
         return unitId;
@@ -40,6 +21,7 @@ public class Unit{
     public void setUnitId(Integer unitId) {
         this.unitId = unitId;
     }
+  
 
 	public String getName() {
 		return this.name;
@@ -56,5 +38,6 @@ public class Unit{
 	public void setNote(String note) {
 		this.note = note;
 	}
+
 
 }
