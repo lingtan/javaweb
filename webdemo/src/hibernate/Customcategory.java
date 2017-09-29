@@ -1,25 +1,36 @@
 package hibernate;
 
-/**
- * Customcategory entity. @author MyEclipse Persistence Tools
- */
-public class Customcategory extends AbstractCustomcategory implements
-		java.io.Serializable {
 
-	// Constructors
+public  class Customcategory  {
 
-	/** default constructor */
-	public Customcategory() {
+	private Integer unitId;
+	private String name;
+	private String note;
+
+
+	public Integer getUnitId() {
+        return unitId;
+    }
+
+    public void setUnitId(Integer unitId) {
+        this.unitId = unitId;
+    }
+
+
+	public String getName() {
+		return this.name;
 	}
 
-	/** minimal constructor */
-	public Customcategory(String name) {
-		super(name);
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	/** full constructor */
-	public Customcategory(Integer unitId,String name, String note) {
-		super(unitId,name, note);
+	public String getNote() {
+		return this.note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 
 }

@@ -1,9 +1,17 @@
 package hibernate;
 
 /**
- * Unit entity. @author MyEclipse Persistence Tools
+ * AbstractUnit entity provides the base persistence definition of the Unit
+ * entity. @author MyEclipse Persistence Tools
  */
-public class Unit extends AbstractUnit implements java.io.Serializable {
+
+public class Unit{
+
+	// Fields
+
+	private Integer unitId;
+	private String name;
+	private String note;
 
 	// Constructors
 
@@ -13,12 +21,40 @@ public class Unit extends AbstractUnit implements java.io.Serializable {
 
 	/** minimal constructor */
 	public Unit(String name) {
-		super(name);
+		this.name = name;
 	}
 
 	/** full constructor */
 	public Unit(Integer unitId,String name, String note) {
-		super(unitId,name, note);
+		this.unitId=unitId;
+		this.name = name;
+		this.note = note;
+	}
+
+	// Property accessors
+
+	public Integer getUnitId() {
+        return unitId;
+    }
+
+    public void setUnitId(Integer unitId) {
+        this.unitId = unitId;
+    }
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getNote() {
+		return this.note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 
 }
