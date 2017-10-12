@@ -1,4 +1,4 @@
-package common;
+package Tools;
 
 import java.sql.Connection;  
 import java.sql.DriverManager;  
@@ -6,9 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;  
   
 public class DBHelper {  
-    public static final String url = "jdbc:mysql://127.0.0.1:3309/webdb?useUnicode=true&amp;characterEncoding=UTF-8";  
+    public static final String url = "jdbc:mysql://127.0.0.1:3306/webdb?useUnicode=true&amp;characterEncoding=UTF-8";  
     public static final String name = "com.mysql.jdbc.Driver";  
-    public static final String user = "webdb";  
+    public static final String user = "root";  
     public static final String password = "mysql123";  
     public Connection conn = null;  
     public PreparedStatement pst = null;  

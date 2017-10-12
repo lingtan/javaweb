@@ -5,7 +5,7 @@ public class GetUserData {
 	private int unitId;
 	private String name;
 	private String note;
-	private  String original;
+	private  int classType;
 	private  String requestType;
 	private  String serverIp;
     private  String servlet;
@@ -38,14 +38,13 @@ public class GetUserData {
 		this.note=note;
 	}
 	
-	public String getOriginal() {
-        return original;
+	public int getClassType() {
+        return classType;
     }
 
-    public void setOriginal(String original) {
-        this.original = original;
+    public void setClassType(int classType) {
+        this.classType = classType;
     }
-
 	
 	public String getRequestType() {
         return requestType;
@@ -76,7 +75,7 @@ public class GetUserData {
 	@Override
 	public String toString() {
 		
-		return "User [unitId="+unitId+",name="+name+",password="+note+",requestType="+requestType+",serverIp="+serverIp+",servlet="+servlet+"]";
+		return "User [unitId="+unitId+",name="+name+",note="+note+",classType="+classType+",requestType="+requestType+",serverIp="+serverIp+",servlet="+servlet+"]";
 	}
 
 	
