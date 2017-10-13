@@ -58,10 +58,10 @@ public class BrandOperate extends HttpServlet {
 			 case 2:
 				 if(getUserData.getRequestType().equals("select"))
 					{   
-						 QueryResponse(response,mySqlQuery(getUserData,new Customcategory()));
+						 QueryResponse(response,mySqlQuery(getUserData,new ProductCategory()));
 					}else{
 						
-							OperatelResponse( response,mySqOperatel(getUserData,new Customcategory()));
+							OperatelResponse( response,mySqOperatel(getUserData,new ProductCategory()));
 						
 					      }
 		    break;
@@ -109,6 +109,27 @@ public class BrandOperate extends HttpServlet {
 						
 					      }
 		    break;
+			 case 7:
+				 if(getUserData.getRequestType().equals("select"))
+					{   
+						 QueryResponse(response,mySqlQuery(getUserData,new  SupplierCategory()));
+					}else{
+						
+							OperatelResponse( response,mySqOperatel(getUserData,new  SupplierCategory()));
+						
+					      }
+		    break;
+			 case 8:
+				 if(getUserData.getRequestType().equals("select"))
+					{   
+						 QueryResponse(response,mySqlQuery(getUserData,new  CustomCategory()));
+					}else{
+						
+							OperatelResponse( response,mySqOperatel(getUserData,new  CustomCategory()));
+						
+					      }
+		    break;
+				 
 				 
 				 
 			

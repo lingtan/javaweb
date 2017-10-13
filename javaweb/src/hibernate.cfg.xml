@@ -19,12 +19,14 @@
 		com.mysql.jdbc.Driver
 	</property>
 	<property name="myeclipse.connection.profile">mysql</property>
-	<mapping resource="hibernate/Unit.hbm.xml" />
-	<mapping resource="hibernate/Customcategory.hbm.xml" />
-	<mapping resource="hibernate/Brand.hbm.xml" />
-	<mapping resource="hibernate/Employee.hbm.xml" />
-	<mapping resource="hibernate/Stock.hbm.xml" />
-	<mapping resource="hibernate/Consignment.hbm.xml" />
+	<mapping resource="hibernate/brand.hbm.xml" />
+	<mapping resource="hibernate/consignment.hbm.xml" />
+	<mapping resource="hibernate/employee.hbm.xml" />
+	<mapping resource="hibernate/stock.hbm.xml" />
+	<mapping resource="hibernate/suppliercategory.hbm.xml" />
+	<mapping resource="hibernate/unit.hbm.xml" />
+	<mapping resource="hibernate/productcategory.hbm.xml" />
+	<mapping resource="hibernate/customcategory.hbm.xml" />
 
 </session-factory>
 
