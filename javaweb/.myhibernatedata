@@ -19,6 +19,6 @@ sessionFactoryId=
 basePersistenceClass=
 genAnnotations=false
 reSettingsFile=
-configFile=/webdemo/src/hibernate.cfg.xml
+configFile=/javaweb/src/hibernate.cfg.xml
 createConfigFile=true
 addLibs2Classpath=true
