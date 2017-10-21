@@ -21,12 +21,15 @@
 	<property name="myeclipse.connection.profile">mysql</property>
 	<mapping resource="hibernate/brand.hbm.xml" />
 	<mapping resource="hibernate/consignment.hbm.xml" />
+	<mapping resource="hibernate/custom.hbm.xml" />
+	<mapping resource="hibernate/customcategory.hbm.xml" />
 	<mapping resource="hibernate/employee.hbm.xml" />
+	<mapping resource="hibernate/productcategory.hbm.xml" />
 	<mapping resource="hibernate/stock.hbm.xml" />
+	<mapping resource="hibernate/supplier.hbm.xml" />
 	<mapping resource="hibernate/suppliercategory.hbm.xml" />
 	<mapping resource="hibernate/unit.hbm.xml" />
-	<mapping resource="hibernate/productcategory.hbm.xml" />
-	<mapping resource="hibernate/customcategory.hbm.xml" />
+	<mapping resource="hibernate/product.hbm.xml" />
 
 </session-factory>
 

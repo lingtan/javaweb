@@ -5,6 +5,11 @@ public class GetUserData {
 	private int unitId;
 	private String name;
 	private String note;
+    private String address;
+    private String phone;
+	private String fax;
+    private int category_id;
+    private String category_name;
 	private  int classType;
 	private  String requestType;
 	private  String serverIp;
@@ -37,6 +42,45 @@ public class GetUserData {
 	{
 		this.note=note;
 	}
+	 public String getAddress() {
+	        return address;
+	    }
+
+	    public void setAddress(String address) {
+	        this.address = address;
+	    }
+
+	    public String getPhone() {
+	        return phone;
+	    }
+
+	    public void setPhone(String phone) {
+	        this.phone = phone;
+	    }
+
+	    public String getFax() {
+	        return fax;
+	    }
+
+	    public void setFax(String fax) {
+	        this.fax = fax;
+	    }
+
+	    public int getCategory_id() {
+	        return category_id;
+	    }
+
+	    public void setCategory(int category_id) {
+	        this.category_id = category_id;
+	    }
+	    
+	    public String getCategory_name() {
+	        return category_name;
+	    }
+
+	    public void setCategory_name(String category_name) {
+	        this.category_name = category_name;
+	    }
 	
 	public int getClassType() {
         return classType;
@@ -72,13 +116,6 @@ public class GetUserData {
 	
 	
 
-	@Override
-	public String toString() {
-		
-		return "User [unitId="+unitId+",name="+name+",note="+note+",classType="+classType+",requestType="+requestType+",serverIp="+serverIp+",servlet="+servlet+"]";
-	}
-
-	
 	
 	
 	

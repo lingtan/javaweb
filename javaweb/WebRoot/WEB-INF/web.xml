@@ -31,6 +31,18 @@
     <servlet-name>BrandOperate</servlet-name>
     <servlet-class>erp.BrandOperate</servlet-class>
   </servlet>
+   <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ContactOperate</servlet-name>
+    <servlet-class>erp.ContactOperate</servlet-class>
+  </servlet>
+   <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ProductOperate</servlet-name>
+    <servlet-class>erp.ProductOperate</servlet-class>
+  </servlet>
   <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
@@ -72,6 +84,14 @@
   <servlet-mapping>
     <servlet-name>BrandOperate</servlet-name>
     <url-pattern>/servlet/BrandOperate</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ContactOperate</servlet-name>
+    <url-pattern>/servlet/ContactOperate</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ProductOperate</servlet-name>
+    <url-pattern>/servlet/ProductOperate</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>StockOperate</servlet-name>
